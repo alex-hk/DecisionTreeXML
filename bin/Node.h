@@ -23,11 +23,12 @@ public:
 		printf("Value is greater than size of vector\n");
 		return NULL;
 	}
-	size_t getChildrenSize() { return children.size(); }
+	size_t	getChildrenSize() { return children.size(); }
 	string	getXmlNode() { return xmlnode; }
 	string	getBehavior() { return behavior; }
 	string	getResponse() { return response; }
 	void	setXmlNode(string xml) { xmlnode = xml; }
 	void	setBehavior(string beh) { behavior = beh; }
 	void	setResponse(string res) { response = res; }
+	bool	checkChoice(string choice) { return (choice == behavior || choice == response || choice == xmlnode); }
 };

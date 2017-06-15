@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "Tree.h"
 #include <assert.h>
+#include <queue>
 
 Node* Tree::buildTree(Node* root) {
 	Node* rnode = new Node();
@@ -87,6 +88,65 @@ Node* Tree::buildTree(Node* root) {
 
 	return buildTree(rnode);
 }
+
+string Tree::randResponse(Node * root){
+	if(!root->isLeaf()){
+		return root->getResponse();
+	}
+	else{
+		int rsize = root->getChildrenSize();
+		srand(time(NULL));
+
+		int rnum = rand() % rsize;
+
+		return randResponse(root->getChild(rnum));
+	}
+}
+
+string Tree::bfSearch(Node* root, string choice){
+	queue<Node *> nodequeue;
+	nodequeue.push(root);
+
+	Node * current;
+
+	while(!nodequeue.empty()){
+		current = nodequeue.front();
+		nodequeue.pop();
+		if(current->checkChoice(choice)){
+			return randResponse(root);
+		}
+		for(int iter = 0; iter < current->getChildrenSize(); iter++){
+			nodequeue.push(current->getChild(iter));
+		}
+	}
+}
+
+string Tree::dfSearch(Node* root, string choice){
+	if(root->checkChoice(choice)){
+		return randResponse(root);	
+	}
+	
+	for(int iter = 0; iter < root->getChildrenSize(); iter++){
+		dfSearch(root->getChild(iter), choice);
+	}
+
+}
+
+/*
+string randResponse(Node * root){
+	if(!root->isLeaf()){
+		return root->getResponse();
+	}
+	else{
+		int rsize = root->getChildrenSize();
+		srand(time(NULL));
+
+		int rnum = rand() % rsize;
+
+		randResponse(root->getChild(rnum));
+	}
+}
+*/
 
 void Tree::printTree(Node* root, int level) {
 	if (root->getBehavior() != "") {
