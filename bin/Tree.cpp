@@ -5,6 +5,7 @@
 #include <queue>
 #include <cstring>
 #include <string>
+#include <time.h>
 
 Node* Tree::buildTree(Node* root) {
 	Node* rnode = new Node();
@@ -91,9 +92,9 @@ Node* Tree::buildTree(Node* root) {
 	return buildTree(rnode);
 }
 
-const char * Tree::randResponse(Node * root){
+string Tree::randResponse(Node * root){
 	if(!root->isLeaf()){
-		const char * response = root->getResponse().c_str();
+		string response = root->getResponse();
 		return response;
 	}
 	else{
@@ -106,7 +107,7 @@ const char * Tree::randResponse(Node * root){
 	}
 }
 
-const char * Tree::bfSearch(Node* root, string choice){
+string Tree::bfSearch(Node* root, string choice){
 	queue<Node *> nodequeue;
 	nodequeue.push(root);
 
@@ -116,7 +117,7 @@ const char * Tree::bfSearch(Node* root, string choice){
 		current = nodequeue.front();
 		nodequeue.pop();
 		if(current->checkChoice(choice)){
-			return randResponse(root);
+			return randResponse(current);
 		}
 		for(int iter = 0; iter < current->getChildrenSize(); iter++){
 			nodequeue.push(current->getChild(iter));
@@ -124,17 +125,21 @@ const char * Tree::bfSearch(Node* root, string choice){
 	}
 }
 
-const char * Tree::dfSearch(Node* root, string choice){
+string Tree::dfSearch(Node* root, string choice){
+	string response;
 	if(root->checkChoice(choice)){
-		return randResponse(root);
+		response = randResponse(root);
+		return response;
+	} else {
+		response = "";
 	}
 	
 	for(int iter = 0; iter < root->getChildrenSize(); iter++){
-		const char * response;
 		response = dfSearch(root->getChild(iter), choice);
-		return response;
+		if(response != "")
+			return response;
 	}
-
+	return "";
 }
 
 /*

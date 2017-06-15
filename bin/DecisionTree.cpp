@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
-#include <unistd.h>
+#include <time.h>
+//#include <unistd.h>
 //#include "XMLParser.h"
 //#include "Node.h"
 #include "Tree.h"
@@ -31,10 +32,11 @@ int main()
 
 	string choice = "";
 	printf("Event ('quit' to exit) : ");
-	cin >> choice;
+	getline(cin, choice);
 	while (choice != "quit") {
 		string response = "";
-		if((rand()%100)/2 > 50)
+		int rnum = (rand() % 100);
+		if(rnum)
 			response = dTree.bfSearch(root, choice);
 		else
 			response = dTree.dfSearch(root, choice);
@@ -42,6 +44,6 @@ int main()
 		printf("Response = %s\n", response.c_str());
 
 		printf("Event ('quit to exit) : ");
-		cin >> choice;
+		getline(cin, choice);
 	}
 }
