@@ -3,6 +3,8 @@
 #include "Tree.h"
 #include <assert.h>
 #include <queue>
+#include <cstring>
+#include <string>
 
 Node* Tree::buildTree(Node* root) {
 	Node* rnode = new Node();
@@ -10,7 +12,7 @@ Node* Tree::buildTree(Node* root) {
 	Token tok = parser.getNextToken();
 	assert(verifyToken(tok.getToken(), OARR_TOK));
 	tok = parser.getNextToken();
-
+	
 	if (verifyToken(tok.getToken(),END_TOK)) {
 		tok = parser.getNextToken();
 		assert(verifyToken(tok.getToken(), NODE_TOK));
@@ -89,9 +91,10 @@ Node* Tree::buildTree(Node* root) {
 	return buildTree(rnode);
 }
 
-string Tree::randResponse(Node * root){
+const char * Tree::randResponse(Node * root){
 	if(!root->isLeaf()){
-		return root->getResponse();
+		const char * response = root->getResponse().c_str();
+		return response;
 	}
 	else{
 		int rsize = root->getChildrenSize();
@@ -103,7 +106,7 @@ string Tree::randResponse(Node * root){
 	}
 }
 
-string Tree::bfSearch(Node* root, string choice){
+const char * Tree::bfSearch(Node* root, string choice){
 	queue<Node *> nodequeue;
 	nodequeue.push(root);
 
@@ -121,13 +124,15 @@ string Tree::bfSearch(Node* root, string choice){
 	}
 }
 
-string Tree::dfSearch(Node* root, string choice){
+const char * Tree::dfSearch(Node* root, string choice){
 	if(root->checkChoice(choice)){
-		return randResponse(root);	
+		return randResponse(root);
 	}
 	
 	for(int iter = 0; iter < root->getChildrenSize(); iter++){
-		dfSearch(root->getChild(iter), choice);
+		const char * response;
+		response = dfSearch(root->getChild(iter), choice);
+		return response;
 	}
 
 }

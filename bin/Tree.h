@@ -12,7 +12,7 @@ public:
 	Node* buildTree(Node* root);
 	void printTree(Node* root, int level);
 	bool verifyToken(TokenType tok, TokenType token) { return tok == token; }
-	string bfSearch(Node * root, string choice);
-	string dfSearch(Node * root, string choice);
-	string randResponse(Node * root);
+	const char * bfSearch(Node * root, string choice);
+	const char * dfSearch(Node * root, string choice);
+	const char * randResponse(Node * root);
 };
