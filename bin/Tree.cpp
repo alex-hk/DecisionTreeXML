@@ -99,11 +99,12 @@ string Tree::randResponse(Node * root){
 	}
 	else{
 		int rsize = root->getChildrenSize();
+		//printf("Num Children: %d\n", rsize);
 		srand(time(NULL));
 
-		int rnum = rand() % rsize;
-
-		return randResponse(root->getChild(rnum));
+		int rnum = rand() % (rsize*100);
+		//printf("Choosing child: %d\n", rnum%rsize);
+		return randResponse(root->getChild(rnum%rsize));
 	}
 }
 

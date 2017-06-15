@@ -43,7 +43,7 @@ int main()
 
 		printf("Response = %s\n", response.c_str());
 
-		printf("Event ('quit to exit) : ");
+		printf("Event ('quit' to exit) : ");
 		getline(cin, choice);
 	}
 }
