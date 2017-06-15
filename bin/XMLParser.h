@@ -24,6 +24,20 @@ public:
 
 	//~XMLParser();
 
+	/*	XML Parser
+	 *	Reads each line of file
+	 *	Reads each character in each line
+	 *	Determines the token associated with each character/strings
+	 *		EG: (	<: 		OARR_TOK
+	 *			>: 		CARR_TOK
+	 *			/: 		END_TOK
+	 *			=: 		EQ_TOK
+	 *			":		QT_TOK
+	 *			"(after QT_TOK):EQT_TOK
+	 *			Text: 		TXT_TOK
+	 *			behavior/response(or any variable behind an EQ): ATRB_TOK
+	 *	Builds a queue of Tokens to store in memory
+	 */
 	void parse();
 	bool isWhiteSpace(char c) { return c == ' '; }
 	Token getNextToken() { Token token = tokens.front(); tokens.pop(); return token; }
